@@ -15,3 +15,10 @@ mkdir ~/Spotify
 git clone https://github.com/mykebates/test-table.git ~/Spotify/test-table
 open 'spotify:app:test-table'
 ```
+
+
+### Todo
+- Get Pusher Prescence channels running so there is info about room memmbers
+- Get a rough implementation of drag/drop playlists running
+- Make playlists function in roundrobin fashion
+- Enable album and track in addition to playlist for drag/drop adding
