@@ -1,0 +1,8 @@
+body{ padding: 0 20px; }
+#user_list{
+	padding: 0; margin: 0; list-style: none; @include clearfix;
+	li{
+		@include float(left); width: 150px;
+		img{ border-radius: 50%; width: 100%; }
+	}
+}
