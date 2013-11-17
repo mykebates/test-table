@@ -27,7 +27,7 @@ require([
             'image': user.image,
             'name': user.name
         }
-        ajaxCall('http://testtable.dev/user/join', data);
+        ajaxCall('http://testtable.mykebates.com/user/join', data);
     });
 
     // Playlist dragged onto app icon
