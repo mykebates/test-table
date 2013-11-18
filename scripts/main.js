@@ -17,9 +17,6 @@ require([
     // playlistExample.doPlaylistForAlbum();
 
 
-
-
-
     // User has entered
     var user = models.User.fromURI('spotify:user:@');
     user.load('username', 'name').done(function(user) {
@@ -27,8 +24,12 @@ require([
             'image': user.image,
             'name': user.name
         }
-        ajaxCall('http://testtable.mykebates.com/user/join', data);
+        loadPusherMessaging(user);
+        //ajaxCall('http://testtable.dev/user/join', data);
     });
+
+
+
 
     // Playlist dragged onto app icon
     models.application.addEventListener('dropped', function() {
