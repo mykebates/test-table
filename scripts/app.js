@@ -48,6 +48,8 @@ function loadPusherMessaging(user)
     });
 
    channel.bind('pusher:member_removed', function(member) {
+        console.log('removing member');
+        console.log(member);
         removeUserImage(member.info);
     });
 
@@ -60,7 +62,7 @@ function addUserImage(data){
 }
 
 function removeUserImage(data){
-	$('#user_list li[data-username="'+data.username+'"]').fadeOut();
+	$('#user_list li[data-username="user_'+data.username+'"]').fadeOut();
 }
 
 
