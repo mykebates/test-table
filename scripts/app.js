@@ -20,11 +20,11 @@ function loadPusherMessaging(user)
 	channel = pusher.subscribe('presence-testtable');
 
 	// Enable pusher logging - don't include this in production
-    Pusher.log = function(message) {
-      if (window.console && window.console.log) {
-        window.console.log(message);
-      }
-    };
+    // Pusher.log = function(message) {
+    //   if (window.console && window.console.log) {
+    //     window.console.log(message);
+    //   }
+    // };
 
     channel.bind('pusher:subscription_succeeded', function(members) {
         addUserImage(members.me.info);
@@ -38,18 +38,11 @@ function loadPusherMessaging(user)
         alert(data.message);
     });
 
-    channel.bind('userJoined', function(data) {
-        addUserImage(data);
-    });
-
     channel.bind('pusher:member_added', function(member) {
-        console.log(member.info.username);
         addUserImage(member.info);
     });
 
    channel.bind('pusher:member_removed', function(member) {
-        console.log('removing member');
-        console.log(member);
         removeUserImage(member.info);
     });
 

@@ -18,7 +18,7 @@ open 'spotify:app:test-table'
 
 
 ### Todo
-- Get Pusher Prescence channels running so there is info about room memmbers
+- ~~Get Pusher Presence channels running so there is info about room members~~
 - Get a rough implementation of drag/drop playlists running
 - Make playlists function in round robin fashion
 - Enable album and track in addition to playlist for drag/drop adding
