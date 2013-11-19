@@ -33,8 +33,23 @@ require([
 
     // Playlist dragged onto app icon
     models.application.addEventListener('dropped', function() {
-        var dropped = models.application.dropped; // it contains the dropped elements
+        var dropped = models.application.dropped;
         console.table(dropped);
+
+        models.Playlist.fromURI(dropped[0].uri).load('name', 'tracks').done(function(playlist) {
+            $('#own_queue ul, #own_queue h3').empty();
+            $('#own_queue').prepend('<h3>'+playlist.name.decodeForHtml()+'</h3>');
+            playlist.tracks.snapshot().done(function(trackSnapshot){
+                var tracks = trackSnapshot.toArray();
+                _.each(tracks, function(track){
+                    var artist = track.artists[0];
+                    var trackHTML = '<li data-id="" class="ui-state-default"><img src="'+track.image+'" />'+track.name+' - '+artist.name+'</li>';
+                    $('#own_queue ul').append(trackHTML);
+                });
+                $( ".sortable" ).sortable();
+                $( ".sortable" ).disableSelection();
+            });
+        });
     });
 
 });

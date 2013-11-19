@@ -12,6 +12,8 @@ $(function(){
  //        addUserImage(data);
  //    });
 
+    
+
 });
 
 function loadPusherMessaging(user)

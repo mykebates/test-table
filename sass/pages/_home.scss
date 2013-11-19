@@ -3,6 +3,20 @@ body{ padding: 0 20px; }
 	padding: 0; margin: 0; list-style: none; @include clearfix;
 	li{
 		@include float(left); width: 150px;
-		img{ border-radius: 50%; width: 100%; }
+		img{ border-radius: 50%; width: 150px; height: 150px; }
 	}
+}
+
+
+#own_queue{
+	h3{ margin-bottom: 0; margin-top: 1.5em; }
+}
+
+.sortable{
+	list-style: none; padding: 0;
+	li{ 
+		color: #000; border-radius: 3px; padding: 5px; cursor: move; font-size: .75em;
+		img{ width: 50px; height: 50px; margin-right: 20px; }
+	}
+	.ui-icon{ display: none; }
 }
