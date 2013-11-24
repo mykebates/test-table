@@ -43,13 +43,29 @@ require([
                 var tracks = trackSnapshot.toArray();
                 _.each(tracks, function(track){
                     var artist = track.artists[0];
-                    var trackHTML = '<li data-id="" class="ui-state-default"><img src="'+track.image+'" />'+track.name+' - '+artist.name+'</li>';
+                    var trackHTML = '<li data-id="'+track.uri+'" class="ui-state-default"><img src="'+track.image+'" />'+track.name+' - '+artist.name+'</li>';
                     $('#own_queue ul').append(trackHTML);
                 });
                 $( ".sortable" ).sortable();
                 $( ".sortable" ).disableSelection();
+                $('#own_queue ul li:first').addClass('is_current_track');
+                var trackID = $('#own_queue ul li:first').data('id');
+                models.player.playTrack(models.Track.fromURI(trackID));
             });
         });
     });
+
+    // Update listener
+    $( ".sortable" ).on( "sortupdate", function( event, ui ) {
+        if(ui.item.index() == 0){
+            var trackURI = ui.item.data('id');
+            playTrack(trackURI);
+        }
+    });
+
+    function playTrack(trackURI)
+    {
+        models.player.playTrack(models.Track.fromURI(trackURI));
+    }
 
 });
