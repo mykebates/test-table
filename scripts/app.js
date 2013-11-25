@@ -1,5 +1,6 @@
 var pusher;
 var channel;
+var roomMembers = ['12345678'];
 $(function(){
 
 	// var pusher = new Pusher('b1676ed848f98417d9d5');
@@ -30,6 +31,16 @@ function loadPusherMessaging(user)
 
     channel.bind('pusher:subscription_succeeded', function(members) {
         addUserImage(members.me.info);
+
+        _.each(members, function(member){
+            if(member.info){
+                addMemberToRoom(member);
+            }
+        });
+        var data = {
+            'members': encodeURIComponent(roomMembers)
+        }
+        ajaxCall('http://testtable.dev/room/setdjs', data);
     });
 
     pusher.connection.bind('connected', function() { //bind a function after we've connected to Pusher
@@ -58,6 +69,11 @@ function addUserImage(data){
 
 function removeUserImage(data){
 	$('#user_list li[data-username="user_'+data.username+'"]').fadeOut();
+}
+
+function addMemberToRoom(member){
+    // have access to the member details here but just pusing the memberid for now
+    roomMembers.push(member.id);
 }
 
 
