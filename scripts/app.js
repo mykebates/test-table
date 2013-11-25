@@ -1,6 +1,6 @@
 var pusher;
 var channel;
-var roomMembers = ['12345678'];
+var roomMembers = [];
 $(function(){
 
 	// var pusher = new Pusher('b1676ed848f98417d9d5');
@@ -30,17 +30,24 @@ function loadPusherMessaging(user)
     // };
 
     channel.bind('pusher:subscription_succeeded', function(members) {
-        addUserImage(members.me.info);
-
+        addUserImage(members.me);
+        var userCount = 0;
+        
         _.each(members, function(member){
             if(member.info){
-                addMemberToRoom(member);
+                userCount ++;
+                addToDJList(member);
             }
         });
-        var data = {
-            'members': encodeURIComponent(roomMembers)
+
+        // This should fire for the first person in the room
+        if(userCount == 1){
+            var data = {
+                'member': members.me.id,
+                'isFirstDJ': true
+            }
+            ajaxCall('http://testtable.dev/room/djadd', data);
         }
-        ajaxCall('http://testtable.dev/room/setdjs', data);
     });
 
     pusher.connection.bind('connected', function() { //bind a function after we've connected to Pusher
@@ -52,7 +59,7 @@ function loadPusherMessaging(user)
     });
 
     channel.bind('pusher:member_added', function(member) {
-        addUserImage(member.info);
+        addUserImage(member);
     });
 
    channel.bind('pusher:member_removed', function(member) {
@@ -63,17 +70,24 @@ function loadPusherMessaging(user)
 }
 
 function addUserImage(data){
-	var userImage = '<li data-username="user_'+data.username+'" class="animated fadeIn"><img src="'+data.image+'" /></li>';
+	var userImage = '<li data-userid="'+data.id+'" class="animated fadeIn"><img src="'+data.info.image+'" /></li>';
 	$('#user_list').append(userImage);
 }
 
 function removeUserImage(data){
-	$('#user_list li[data-username="user_'+data.username+'"]').fadeOut();
+	$('#user_list li[data-userid="'+data.id+'"]').fadeOut();
 }
 
-function addMemberToRoom(member){
+function addToDJList(member){
     // have access to the member details here but just pusing the memberid for now
     roomMembers.push(member.id);
+}
+
+function reportAddedMember(member){
+    var data = {
+        'member': member.id
+    }
+    ajaxCall('http://testtable.dev/room/djadd', data);
 }
 
 
@@ -86,11 +100,7 @@ function ajaxCall(ajax_url, ajax_data, successCallback)
         data: ajax_data,
         time : 10,
         success : function(msg) {
-            if( msg.success ) {
-                console.log('sdfsd');
-            }else{
-                alert(msg.errormsg);
-            }
+            
         },
         error: function(msg) {
             // log something
