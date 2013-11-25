@@ -30,7 +30,7 @@ require([
             'name': user.name
         }
         loadPusherMessaging(user);
-        //ajaxCall('http://testtable.dev/user/join', data);
+        //ajaxCall('http://testtable.mykebates.com/user/join', data);
     });
 
 
@@ -59,7 +59,7 @@ require([
                 //console.log(getMyPusherId());
                 if(channel.members.count == 1)
                 {
-                    ajaxCall('http://testtable.dev/room/nextsong', '', function(msg){
+                    ajaxCall('http://testtable.mykebates.com/room/nextsong', '', function(msg){
                         console.log('should play song from user', msg);
                     });
                 }
@@ -72,7 +72,7 @@ require([
         console.log(e.data);
         if(!e.data.playing){
             //console.log('song stopped');
-            ajaxCall('http://testtable.dev/room/nextsong', '', function(msg){
+            ajaxCall('http://testtable.mykebates.com/room/nextsong', '', function(msg){
                 console.log('should play song from user', msg);
             });
         }
@@ -114,7 +114,7 @@ require([
         var data = {
             'member': member.id
         }
-        ajaxCall('http://testtable.dev/room/djadd', data, function(msg){
+        ajaxCall('http://testtable.mykebates.com/room/djadd', data, function(msg){
             console.log(msg);
             console.log('should have added a member', member);
         });
@@ -124,7 +124,7 @@ require([
         var data = {
             'member': member.id
         }
-        ajaxCall('http://testtable.dev/room/djremove', data, function(msg){
+        ajaxCall('http://testtable.mykebates.com/room/djremove', data, function(msg){
             console.log(msg);
             console.log('should have removed a member', member);
         });
@@ -145,7 +145,7 @@ require([
             var trackURI = $( ".sortable li:first" ).data('id');
             //trackToBlast = trackURI;
             $( ".sortable li:first" ).addClass('played');
-            ajaxCall('http://testtable.dev/room/broadcastsong', { 'track':  trackURI }, function(msg){
+            ajaxCall('http://testtable.mykebates.com/room/broadcastsong', { 'track':  trackURI }, function(msg){
                 // something here
             });
         }
@@ -212,7 +212,7 @@ require([
                     'member': members.me.id,
                     'isFirstDJ': true
                 }
-                ajaxCall('http://testtable.dev/room/djadd', data);
+                ajaxCall('http://testtable.mykebates.com/room/djadd', data);
             }else{
                 // Populate visual user list on page
                 channel.members.each(function(member) {
